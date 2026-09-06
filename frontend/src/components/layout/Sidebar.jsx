@@ -29,10 +29,12 @@ const managerLinks = [
   { to: '/manager/team', icon: Users, label: 'Team Members' },
   { to: '/manager/projects', icon: FolderKanban, label: 'Projects' },
   { to: '/manager/compare', icon: GitCompare, label: 'Side-by-Side Compare' },
+  { to: '/settings', icon: Settings, label: 'Account Settings' },
 ];
 
 const adminLinks = [
   { to: '/admin/users', icon: Shield, label: 'User Management' },
+  { to: '/settings', icon: Settings, label: 'Account Settings' },
 ];
 
 function SidebarLink({ to, icon: Icon, label }) {
@@ -83,9 +85,8 @@ export default function Sidebar() {
             <span className="text-base font-bold text-slate-800 tracking-tight">WeeklyReports</span>
           </div>
 
-          {/* Role-Specific Navigation Menu */}
+          {/* Navigation */}
           <nav className="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-5rem)]">
-            {/* Show Member Links ONLY to Team Members */}
             {isTeamMember && (
               <>
                 <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
@@ -97,7 +98,6 @@ export default function Sidebar() {
               </>
             )}
 
-            {/* Show Manager Links ONLY to Managers/Admins */}
             {isManager && (
               <>
                 <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
@@ -109,7 +109,6 @@ export default function Sidebar() {
               </>
             )}
 
-            {/* Show Admin Links ONLY to Admins */}
             {isAdmin && (
               <>
                 <div className="pt-5 text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">

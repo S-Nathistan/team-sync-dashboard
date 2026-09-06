@@ -27,7 +27,6 @@ import ProjectManagement from '../pages/manager/ProjectManagement';
 import SectionComparison from '../pages/manager/SectionComparison';
 import UserManagement from '../pages/admin/UserManagement';
 
-// Smart Redirector based on User Role
 function HomeRedirect() {
   const user = useAuthStore((s) => s.user);
   if (!user) return <Navigate to="/login" replace />;
@@ -53,6 +52,9 @@ export default function AppRoutes() {
           {/* Smart Redirect at Root */}
           <Route path="/" element={<HomeRedirect />} />
 
+          {/* Account Settings (Accessible by EVERY Authenticated User) */}
+          <Route path="/settings" element={<Settings />} />
+
           {/* Team Member ONLY Routes */}
           <Route element={<RoleRoute allowedRoles={['team_member']} />}>
             <Route path="/dashboard" element={<MemberDashboard />} />
@@ -60,7 +62,6 @@ export default function AppRoutes() {
             <Route path="/reports/:id/edit" element={<EditReport />} />
             <Route path="/reports/:id" element={<ViewReport />} />
             <Route path="/reports" element={<ReportHistory />} />
-            <Route path="/settings" element={<Settings />} />
           </Route>
 
           {/* Manager & Admin ONLY Routes */}

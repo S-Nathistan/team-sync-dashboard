@@ -21,6 +21,8 @@ class UserUpdateRequest(BaseModel):
     full_name: Optional[str] = Field(None, min_length=1, max_length=255)
     email: Optional[EmailStr] = None
     username: Optional[str] = Field(None, min_length=3, max_length=100)
+    current_password: Optional[str] = None
+    new_password: Optional[str] = Field(None, min_length=6, max_length=128)
 
 
 class UserRoleUpdateRequest(BaseModel):
