@@ -1,5 +1,3 @@
-
-```markdown
 # Team Sync Dashboard — Weekly Report Generator & Team Analytics
 
 A full-stack web application that enables team members to submit structured weekly work reports, allows managers to review and approve them through a multi-step correction workflow, and provides a consolidated analytics dashboard with visual insights across the entire team.
@@ -11,13 +9,13 @@ A full-stack web application that enables team members to submit structured week
 | **Frontend** | React 18, Vite, Tailwind CSS, React Router v6, Zustand, Recharts, React Hook Form + Zod |
 | **Backend** | Python 3.11, FastAPI, SQLAlchemy 2.0 (Async), Pydantic v2, JWT Auth |
 | **Database** | PostgreSQL 17 (Local) / Neon Serverless PostgreSQL (Production) |
-| **AI Assistant** | Google Gemini API (gemini-3.6-flash) with RAG context injection |
+| **AI Assistant** | Google Gemini API (gemini-3.6-flash) with RAG context injection(you will need api key) |
 | **Deployment** | Vercel (Frontend), Render (Backend), Neon (Database) |
 
 ## Project Structure
 
 ```
-Report-Generator-Team-Dashboard/
+Team Sync Dashboard/
 ├── backend/                    # FastAPI Backend (Clean Architecture)
 │   ├── app/
 │   │   ├── core/               # Config, Security (JWT), Dependencies
@@ -173,4 +171,3 @@ pytest -v
 ## License
 
 MIT License
-```
