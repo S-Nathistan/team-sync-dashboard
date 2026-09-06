@@ -168,6 +168,10 @@ pytest -v
 | Backend | Render | https://team-sync-dashboard-api.onrender.com |
 | Database | Neon | Serverless PostgreSQL |
 
+## Notes
+
+**Free-Tier Cold Starts:** The backend is hosted on Render's free tier, which sleeps after 15 minutes of inactivity. Initial requests after a period of dormancy may take up to 45 seconds to spin up. Subsequent cached requests respond in sub-50ms.
+
 ## License
 
 MIT License
