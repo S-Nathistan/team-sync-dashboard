@@ -6,8 +6,19 @@ from sqlalchemy.ext.asyncio import (
 from sqlalchemy.orm import DeclarativeBase
 from app.core.config import settings
 
+# Automatically ensure asyncpg driver is used in cloud environments
+db_url = settings.DATABASE_URL
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql+asyncpg://", 1)
+elif db_url.startswith("postgresql://") and not db_url.startswith("postgresql+asyncpg://"):
+    db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+# Remove incompatible query parameters if present
+if "sslmode=" in db_url:
+    db_url = db_url.replace("sslmode=require", "ssl=require").replace("&channel_binding=require", "")
+
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    db_url,
     echo=settings.DEBUG,
     pool_size=5,
     max_overflow=10,
