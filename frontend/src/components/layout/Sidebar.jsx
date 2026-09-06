@@ -20,7 +20,6 @@ const memberLinks = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/reports/new', icon: PlusCircle, label: 'New Weekly Report' },
   { to: '/reports', icon: History, label: 'My Report History' },
-  { to: '/settings', icon: Settings, label: 'Account Settings' },
 ];
 
 const managerLinks = [
@@ -29,12 +28,10 @@ const managerLinks = [
   { to: '/manager/team', icon: Users, label: 'Team Members' },
   { to: '/manager/projects', icon: FolderKanban, label: 'Projects' },
   { to: '/manager/compare', icon: GitCompare, label: 'Side-by-Side Compare' },
-  { to: '/settings', icon: Settings, label: 'Account Settings' },
 ];
 
 const adminLinks = [
   { to: '/admin/users', icon: Shield, label: 'User Management' },
-  { to: '/settings', icon: Settings, label: 'Account Settings' },
 ];
 
 function SidebarLink({ to, icon: Icon, label }) {
@@ -76,50 +73,60 @@ export default function Sidebar() {
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div>
-          {/* Brand Header */}
-          <div className="h-16 flex items-center gap-2.5 px-6 border-b border-slate-100">
-            <div className="w-8 h-8 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold shadow-xs">
-              <FileSpreadsheet size={18} />
+        <div className="flex flex-col h-full justify-between">
+          <div>
+            {/* Brand Header */}
+            <div className="h-16 flex items-center gap-2.5 px-6 border-b border-slate-100">
+              <div className="w-8 h-8 rounded-lg bg-primary-600 text-white flex items-center justify-center font-bold shadow-xs">
+                <FileSpreadsheet size={18} />
+              </div>
+              <span className="text-base font-bold text-slate-800 tracking-tight">WeeklyReports</span>
             </div>
-            <span className="text-base font-bold text-slate-800 tracking-tight">WeeklyReports</span>
+
+            {/* Navigation Menu */}
+            <nav className="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-9rem)]">
+              {/* Show Member Links ONLY to Team Members */}
+              {isTeamMember && (
+                <>
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
+                    Member Workspace
+                  </div>
+                  {memberLinks.map((link) => (
+                    <SidebarLink key={link.to} {...link} />
+                  ))}
+                </>
+              )}
+
+              {/* Show Manager Links ONLY to Managers/Admins */}
+              {isManager && (
+                <>
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
+                    Management
+                  </div>
+                  {managerLinks.map((link) => (
+                    <SidebarLink key={link.to} {...link} />
+                  ))}
+                </>
+              )}
+
+              {/* Show Admin Links ONLY to Admins */}
+              {isAdmin && (
+                <>
+                  <div className="pt-5 text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
+                    Administration
+                  </div>
+                  {adminLinks.map((link) => (
+                    <SidebarLink key={link.to} {...link} />
+                  ))}
+                </>
+              )}
+            </nav>
           </div>
 
-          {/* Navigation */}
-          <nav className="p-4 space-y-1.5 overflow-y-auto max-h-[calc(100vh-5rem)]">
-            {isTeamMember && (
-              <>
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
-                  Member Workspace
-                </div>
-                {memberLinks.map((link) => (
-                  <SidebarLink key={link.to} {...link} />
-                ))}
-              </>
-            )}
-
-            {isManager && (
-              <>
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
-                  Management
-                </div>
-                {managerLinks.map((link) => (
-                  <SidebarLink key={link.to} {...link} />
-                ))}
-              </>
-            )}
-
-            {isAdmin && (
-              <>
-                <div className="pt-5 text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 pb-1">
-                  Administration
-                </div>
-                {adminLinks.map((link) => (
-                  <SidebarLink key={link.to} {...link} />
-                ))}
-              </>
-            )}
-          </nav>
+          {/* Unified Bottom Settings Area (Ensures exactly ONE Settings link for everyone) */}
+          <div className="p-4 border-t border-slate-100 bg-slate-50/50 rounded-b-xl">
+            <SidebarLink to="/settings" icon={Settings} label="Account Settings" />
+          </div>
         </div>
       </aside>
     </>
